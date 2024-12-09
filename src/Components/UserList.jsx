@@ -82,7 +82,7 @@ const UserTable = () => {
                 <div className="row align-items-center h-50">
                     {/* Responsive Heading */}
                     <div className="col-12 col-md-10 mb-1">
-                        <h2 className="text-start p-0 w-100">User Management</h2>
+                        <h2 className="text-start p-0 w-100">UserManagement</h2>
                     </div>
 
                     {/* Responsive Button */}
@@ -115,21 +115,21 @@ const UserTable = () => {
             </div>
 
             {/* User Table */}
-            {/* <Table striped bordered hover responsive className="mt-md-3">
-                <thead>
+            <Table striped bordered hover responsive="sm" className="mt-3">
+                <thead className="text-center align-middle">
                     <tr>
-                        <th>S.No</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th style={{ width: "5%" }}>S.No</th>
+                        <th style={{ width: "20%" }}>Name</th>
+                        <th style={{ width: "20%" }}>Email</th>
+                        <th style={{ width: "15%" }}>Role</th>
+                        <th style={{ width: "10%" }}>Status</th>
+                        <th style={{ width: "20%" }}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user) => (
-                        <tr key={user.id}>
-                            <td>{user.id}</td>
+                    {users.map((user, index) => (
+                        <tr key={user.id} className="text-center align-middle">
+                            <td>{index + 1}</td>
                             <td>
                                 {editingUser === user.id ? (
                                     <Form.Control
@@ -182,157 +182,43 @@ const UserTable = () => {
                                             setEditValues({ ...editValues, isActive: val === 1 })
                                         }
                                     >
-                                        <ToggleButton id={`edit-active-${user.id}`} value={1}>Active</ToggleButton>
-                                        <ToggleButton id={`edit-inactive-${user.id}`} value={0}>Inactive</ToggleButton>
+                                        <ToggleButton value={1}>Active</ToggleButton>
+                                        <ToggleButton value={0}>Inactive</ToggleButton>
                                     </ToggleButtonGroup>
                                 ) : (
                                     user.isActive ? "Active" : "Inactive"
                                 )}
                             </td>
-
                             <td>
                                 {editingUser === user.id ? (
-                                    <Button variant="success" onClick={handleUpdateUser}>
+                                    <Button variant="success" size="sm" onClick={handleUpdateUser}>
                                         Save
                                     </Button>
                                 ) : (
-                                    <>
+                                    <div className="d-flex justify-content-center gap-2">
                                         <Button
                                             variant="warning"
-                                            className="text-white me-2"
-                                            style={{ fontSize: "12px" }}
+                                            className="text-white px-3"
+                                            size="sm"
                                             onClick={() => handleEditUser(user.id)}
                                         >
                                             <FaEdit /> Edit
                                         </Button>
                                         <Button
                                             variant="danger"
+                                            size="sm"
                                             onClick={() => handleDeleteUser(user.id)}
-                                            style={{ fontSize: "12px" }}
                                         >
                                             <FaTrash /> Delete
                                         </Button>
-                                    </>
+                                    </div>
                                 )}
                             </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table> */}
-            <Table striped bordered hover responsive="sm" className="mt-3">
-                <thead className="text-start">
-                    <tr>
-                        <th>S.No</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th className="text-center">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user, index) => (
-                        <tr key={user.id} className="align-middle">
-                            <td className="text-center">{index + 1}</td>
-                            <td>
-                                {editingUser === user.id ? (
-                                    <Form.Control
-                                        type="text"
-                                        size="sm"
-                                        value={editValues.name}
-                                        onChange={(e) =>
-                                            setEditValues({ ...editValues, name: e.target.value })
-                                        }
-                                    />
-                                ) : (
-                                    user.name
-                                )}
-                            </td>
-                            <td>
-                                {editingUser === user.id ? (
-                                    <Form.Control
-                                        type="email"
-                                        size="sm"
-                                        value={editValues.email}
-                                        onChange={(e) =>
-                                            setEditValues({ ...editValues, email: e.target.value })
-                                        }
-                                    />
-                                ) : (
-                                    user.email
-                                )}
-                            </td>
-                            <td>
-                                {editingUser === user.id ? (
-                                    <DropdownButton
-                                        size="sm"
-                                        title={editValues.role || "Select Role"}
-                                        onSelect={(selectedRole) =>
-                                            setEditValues({ ...editValues, role: selectedRole })
-                                        }
-                                    >
-                                        <Dropdown.Item eventKey="Admin">Admin</Dropdown.Item>
-                                        <Dropdown.Item eventKey="User">User</Dropdown.Item>
-                                        <Dropdown.Item eventKey="Moderator">Moderator</Dropdown.Item>
-                                    </DropdownButton>
-                                ) : (
-                                    user.role
-                                )}
-                            </td>
-                            <td>
-                                {editingUser === user.id ? (
-                                    <ToggleButtonGroup
-                                        type="radio"
-                                        name="status"
-                                        value={editValues.isActive ? 1 : 0}
-                                        onChange={(val) =>
-                                            setEditValues({ ...editValues, isActive: val === 1 })
-                                        }
-                                    >
-                                        <ToggleButton
-                                            size="sm"
-                                            id={`edit-active-${user.id}`}
-                                            value={1}
-                                            variant="outline-success"
-                                        >
-                                            Active
-                                        </ToggleButton>
-                                        <ToggleButton
-                                            size="sm"
-                                            id={`edit-inactive-${user.id}`}
-                                            value={0}
-                                            variant="outline-danger"
-                                        >
-                                            Inactive
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                ) : (
-                                    <span className={user.isActive ? "text-success" : "text-danger"}>
-                                        {user.isActive ? "Active" : "Inactive"}
-                                    </span>
-                                )}
-                            </td>
-                            <div className="d-flex justify-content-center gap-2">
-                                <Button
-                                    variant="warning"
-                                    className="text-white px-4"
-                                    size="sm"
-                                    onClick={() => handleEditUser(user.id)}
-                                >
-                                    <FaEdit /> Edit
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    size="sm"
-                                    onClick={() => handleDeleteUser(user.id)}
-                                >
-                                    <FaTrash /> Delete
-                                </Button>
-                            </div>
                         </tr>
                     ))}
                 </tbody>
             </Table>
+
 
 
             {/* Modal for adding new user */}
